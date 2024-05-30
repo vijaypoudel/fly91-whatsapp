@@ -5,11 +5,12 @@ import json
 from twilio.rest import Client
 from botocore.exceptions import NoCredentialsError, PartialCredentialsError
 from dotenv import load_dotenv
+from flasgger import Swagger
 
 load_dotenv()
 
 app = Flask(__name__)
-
+swagger = Swagger(app)
 # Function to retrieve secrets from AWS Secrets Manager
 def get_secret():
     secret_name = "prod/fly91/whatsapp"
@@ -40,6 +41,47 @@ if secrets:
 
     @app.route('/send_message', methods=['POST'])
     def send_message():
+        """
+              Send a WhatsApp message
+              ---
+              tags:
+                - WhatsApp
+              parameters:
+                - name: body
+                  in: body
+                  required: true
+                  schema:
+                    type: object
+                    required:
+                      - to
+                      - message
+                    properties:
+                      to:
+                        type: string
+                        description: The recipient's phone number
+                      message:
+                        type: string
+                        description: The message to send
+              responses:
+                200:
+                  description: Message sent successfully
+                  schema:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                      message_sid:
+                        type: string
+                400:
+                  description: Error sending message
+                  schema:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                      message:
+                        type: string
+              """
         try:
             data = request.get_json()
             to_number = data['to']
