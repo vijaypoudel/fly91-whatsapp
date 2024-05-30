@@ -6,6 +6,7 @@ from twilio.rest import Client
 from botocore.exceptions import NoCredentialsError, PartialCredentialsError
 from dotenv import load_dotenv
 from flasgger import Swagger
+from urllib.parse import quote
 
 load_dotenv()
 
