@@ -10,8 +10,9 @@ from urllib.parse import quote
 
 load_dotenv()
 
-
 app = Flask(__name__)
+port = int(os.environ.get("PORT", 5000))  # Use port 5000 if PORT environment variable is not set
+app.run(host='0.0.0.0', port=port)
 swagger = Swagger(app)
 # Function to retrieve secrets from AWS Secrets Manager
 def get_secret():
