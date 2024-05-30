@@ -10,6 +10,7 @@ from urllib.parse import quote
 
 load_dotenv()
 
+
 app = Flask(__name__)
 swagger = Swagger(app)
 # Function to retrieve secrets from AWS Secrets Manager
