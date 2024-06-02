@@ -4,6 +4,7 @@ import json
 from twilio.rest import Client
 from botocore.exceptions import NoCredentialsError, PartialCredentialsError
 from dotenv import load_dotenv
+import os
 
 load_dotenv()
 
